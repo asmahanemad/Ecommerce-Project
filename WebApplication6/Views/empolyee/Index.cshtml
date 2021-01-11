@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebApplication6.Models.emolyee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.empolyeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dep_Id)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.empolyeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dep_Id)
+        </td>
+     
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.empolyeeId }) |
+            @Html.ActionLink("Deatils", "Deatils", new { id=item.empolyeeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.empolyeeId })
+        </td>
+    </tr>
+}
+
+</table>
+,

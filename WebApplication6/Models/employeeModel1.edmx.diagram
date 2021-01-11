@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29cf9f95c2544244aaa1e68cbce71f01" Name="Diagram1">
+        <EntityTypeShape EntityType="simulationModel.departemnt" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="simulationModel.emolyee" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="simulationModel.FK_departemnt_emolyee" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="simulationModel.Login" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="simulationModel.FK_emolyee_Login" />
+        <EntityTypeShape EntityType="simulationModel.Registration" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="simulationModel.FK_Registration_Login" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

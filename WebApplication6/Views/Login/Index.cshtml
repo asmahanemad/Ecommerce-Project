@@ -1,0 +1,85 @@
+﻿@model WebApplication6.Models.Login
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Login</title>
+    <style>
+        #login-div{
+            position:absolute;
+            left:40%;
+           top:40%;
+           border:1px solid #ff6a00;
+           padding:10px 10px;
+        }
+        .feild-validtion-error{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-div">
+        @using (Html.BeginForm("Authein", "Login", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td></td>
+                    <td style="">تسجيل دخول</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.UserName);
+
+                        @Html.EditorFor(model => model.UserName)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.UserName)</td>
+                </tr>
+                <tr>
+
+                    <td>
+                        @Html.LabelFor(model => model.Password);
+
+                        @Html.EditorFor(model => model.Password)
+                    </td>
+
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.Password)</td>
+
+                <tr>
+                    <td colspan="2">
+                        <label class="feild-validtion-error">@Html.DisplayFor(Model => Model.Error)</label>
+                    </td>
+                    <td>
+                        <input type="submit" name="name" value="Login" />
+                        
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                
+                                <a href="@Url.Action("Index","Registration")">Registration</a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+
+            </table>
+        }
+
+    </div>
+
+    
+</body>
+</html>
+

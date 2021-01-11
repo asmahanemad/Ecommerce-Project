@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="simulationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="departemnt">
+          <Key>
+            <PropertyRef Name="dep_Id" />
+          </Key>
+          <Property Name="dep_Id" Type="int" Nullable="false" />
+          <Property Name="dep_Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="emolyee">
+          <Key>
+            <PropertyRef Name="empolyeeId" />
+          </Key>
+          <Property Name="empolyeeId" Type="int" Nullable="false" />
+          <Property Name="empolyeeName" Type="nvarchar(max)" />
+          <Property Name="dep_Id" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Error" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailID" Type="varchar" MaxLength="245" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cofirmPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="img" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_departemnt_emolyee">
+          <End Role="emolyee" Type="Self.emolyee" Multiplicity="1" />
+          <End Role="departemnt" Type="Self.departemnt" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="emolyee">
+              <PropertyRef Name="empolyeeId" />
+            </Principal>
+            <Dependent Role="departemnt">
+              <PropertyRef Name="dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emolyee_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="emolyee" Type="Self.emolyee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="emolyee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="simulationModelStoreContainer">
+          <EntitySet Name="departemnt" EntityType="Self.departemnt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emolyee" EntityType="Self.emolyee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_departemnt_emolyee" Association="Self.FK_departemnt_emolyee">
+            <End Role="emolyee" EntitySet="emolyee" />
+            <End Role="departemnt" EntitySet="departemnt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emolyee_Login" Association="Self.FK_emolyee_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="emolyee" EntitySet="emolyee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="simulationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="departemnt">
+          <Key>
+            <PropertyRef Name="dep_Id" />
+          </Key>
+          <Property Name="dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="dep_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="emolyee" Relationship="Self.FK_departemnt_emolyee" FromRole="departemnt" ToRole="emolyee" />
+        </EntityType>
+        <EntityType Name="emolyee">
+          <Key>
+            <PropertyRef Name="empolyeeId" />
+          </Key>
+          <Property Name="empolyeeId" Type="Int32" Nullable="false" />
+          <Property Name="empolyeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dep_Id" Type="Int32" />
+          <NavigationProperty Name="departemnt" Relationship="Self.FK_departemnt_emolyee" FromRole="emolyee" ToRole="departemnt" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Login" Relationship="simulationModel.FK_emolyee_Login" FromRole="emolyee" ToRole="Login" />
+        </EntityType>
+        <Association Name="FK_departemnt_emolyee">
+          <End Role="emolyee" Type="Self.emolyee" Multiplicity="1" />
+          <End Role="departemnt" Type="Self.departemnt" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="emolyee">
+              <PropertyRef Name="empolyeeId" />
+            </Principal>
+            <Dependent Role="departemnt">
+              <PropertyRef Name="dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="employeeContextEntites" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departemnt" EntityType="Self.departemnt" />
+          <EntitySet Name="emolyee" EntityType="Self.emolyee" />
+          <AssociationSet Name="FK_departemnt_emolyee" Association="Self.FK_departemnt_emolyee">
+            <End Role="emolyee" EntitySet="emolyee" />
+            <End Role="departemnt" EntitySet="departemnt" />
+          </AssociationSet>
+          <EntitySet Name="Login" EntityType="simulationModel.Login" />
+          <AssociationSet Name="FK_emolyee_Login" Association="simulationModel.FK_emolyee_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="emolyee" EntitySet="emolyee" />
+          </AssociationSet>
+          <EntitySet Name="Registration" EntityType="simulationModel.Registration" />
+          <AssociationSet Name="FK_Registration_Login" Association="simulationModel.FK_Registration_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Registration" EntitySet="Registration" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="emolyee" Relationship="simulationModel.FK_emolyee_Login" FromRole="Login" ToRole="emolyee" />
+          <Property Name="Error" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="Registration" Relationship="simulationModel.FK_Registration_Login" FromRole="Login" ToRole="Registration" />
+        </EntityType>
+        <Association Name="FK_emolyee_Login">
+          <End Type="simulationModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="simulationModel.emolyee" Role="emolyee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="emolyee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Login" Relationship="simulationModel.FK_Registration_Login" FromRole="Registration" ToRole="Login" />
+          <Property Name="cofirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Registration_Login">
+          <End Type="simulationModel.Login" Role="Login" Multiplicity="1" />
+          <End Type="simulationModel.Registration" Role="Registration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="simulationModelStoreContainer" CdmEntityContainer="employeeContextEntites">
+          <EntitySetMapping Name="departemnt">
+            <EntityTypeMapping TypeName="simulationModel.departemnt">
+              <MappingFragment StoreEntitySet="departemnt">
+                <ScalarProperty Name="dep_Id" ColumnName="dep_Id" />
+                <ScalarProperty Name="dep_Name" ColumnName="dep_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emolyee">
+            <EntityTypeMapping TypeName="simulationModel.emolyee">
+              <MappingFragment StoreEntitySet="emolyee">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="empolyeeId" ColumnName="empolyeeId" />
+                <ScalarProperty Name="empolyeeName" ColumnName="empolyeeName" />
+                <ScalarProperty Name="dep_Id" ColumnName="dep_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="simulationModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Error" ColumnName="Error" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registration">
+            <EntityTypeMapping TypeName="simulationModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="cofirmPassword" ColumnName="cofirmPassword" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

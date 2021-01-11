@@ -1,0 +1,42 @@
+﻿@model WebApplication6.Models.emolyee
+
+@{
+    ViewBag.Title = " Deatils";
+}
+
+<h2>Deatils</h2>
+
+<div>
+    <h4>emolyee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.empolyeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empolyeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dep_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dep_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.departemnt.dep_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.departemnt.dep_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.empolyeeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
